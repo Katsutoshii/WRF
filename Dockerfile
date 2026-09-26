@@ -3,7 +3,7 @@
 # Build WRF (GNU gfortran/gcc, dmpar + OpenMPI) and package an idealized case.
 #
 #   docker build -t wrf .
-#   docker run --rm --shm-size=1g -v "$PWD/out:/work" wrf
+#   docker run --rm --shm-size=1g -v "$PWD/out/em_quarter_ss:/work" wrf
 #
 # See docker/README.md for details.
 #

@@ -21,8 +21,8 @@ The compile takes about 15 minutes on 16 cores.
 ## Run
 
 ```bash
-mkdir -p out
-docker run --rm --shm-size=1g -v "$PWD/out:/work" wrf:em_quarter_ss
+mkdir -p out/em_quarter_ss
+docker run --rm --shm-size=1g -v "$PWD/out/em_quarter_ss:/work" wrf:em_quarter_ss
 ```
 
 The entrypoint ([`run-case.sh`](run-case.sh)) does the following:
@@ -32,13 +32,13 @@ The entrypoint ([`run-case.sh`](run-case.sh)) does the following:
 2. Runs `ideal.exe`.
 3. Runs `mpirun -np $NP wrf.exe`.
 
-History output (`wrfout_d01_*`) and `rsl.*` logs land in `out/`.
+History output (`wrfout_d01_*`) and `rsl.*` logs land in `out/em_quarter_ss/`. Give each case its own folder under `out/`, named after the case, so runs of different cases don't mix.
 
 - Set the number of MPI ranks with `-e NP=8`.
 - The container runs as UID 1000. If your host UID differs, add
   `--user "$(id -u):$(id -g)"`.
 - Pass a command to get a shell or run tools inside the case directory, for example
-  `docker run --rm -it -v "$PWD/out:/work" wrf:em_quarter_ss bash` or
+  `docker run --rm -it -v "$PWD/out/em_quarter_ss:/work" wrf:em_quarter_ss bash` or
   `... wrf:em_quarter_ss ncdump -h wrfout_d01_0001-01-01_00:00:00`.
 
 ## Scope
